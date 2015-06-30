@@ -26,12 +26,16 @@ import rx.functions.*;
 import android.provider.MediaStore.Images;
 import android.content.Context;
 
+import static android.provider.MediaStore.MediaColumns.*;
+
 public class CursorObservable {
     public static Observable<Cursor> create(Cursor cursor) {
         return Observable.create(sub -> {
             try {
-                while (cursor.moveToNext()) {
-                    sub.onNext(cursor);
+                if (cursor.moveToFirst()) {
+                    do {
+                            sub.onNext(cursor);
+                    } while (cursor.moveToNext());
                 }
                 sub.onCompleted();
             } catch (Exception e) {
@@ -47,7 +51,8 @@ public class CursorObservable {
     */
 
     public static Observable<Image> images(Context context) {
-        return create(new Select().from(context, Images.Media.EXTERNAL_CONTENT_URI).query()).map(c -> Image.create(c));
+        Cursor cursor = new Select().from(context, Images.Media.EXTERNAL_CONTENT_URI).query();
+        return create(cursor).map(c -> Image.create(c)).doOnCompleted(() -> cursor.close()).doOnError(e -> cursor.close());
     }
 
     public static class QueryBuilder {

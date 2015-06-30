@@ -43,8 +43,10 @@ dependencies {
 
     //apt 'com.github.yongjhih.AutoCursor:auto-cursor-processor:1.0.0'
     //compile 'com.github.yongjhih.AutoCursor:auto-cursor:1.0.0'
-    apt 'com.github.yongjhih.AutoCursor:auto-cursor-processor:d0db003d3f'
-    compile 'com.github.yongjhih.AutoCursor:auto-cursor:d0db003d3f'
+    //apt 'com.github.yongjhih.AutoCursor:auto-cursor-processor:-SNAPSHOT'
+    //compile 'com.github.yongjhih.AutoCursor:auto-cursor:-SNAPSHOT'
+    apt 'com.github.yongjhih.AutoCursor:auto-cursor-processor:259cc567ae'
+    compile 'com.github.yongjhih.AutoCursor:auto-cursor:259cc567ae'
 }
 
 apply from: 'mvn-push.gradle'
