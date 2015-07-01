@@ -24,9 +24,9 @@ import static android.provider.BaseColumns.*;
 public interface IBaseColumns {
     @Nullable
     @AutoCursor.Column(name = _COUNT)
-    public abstract String count();
+    public abstract Long count();
 
     @Nullable
     @AutoCursor.Column(name = _ID)
-    public abstract String id();
+    public abstract Long id();
 }

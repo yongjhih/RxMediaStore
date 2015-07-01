@@ -28,7 +28,7 @@ public interface ImageColumns extends MediaColumns {
 
     @Nullable
     @AutoCursor.Column(name = BUCKET_ID)
-    public String bucketId();
+    public Long bucketId();
 
     @Nullable
     @AutoCursor.Column(name = DATE_TAKEN)

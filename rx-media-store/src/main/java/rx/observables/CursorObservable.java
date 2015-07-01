@@ -32,10 +32,8 @@ public class CursorObservable {
     public static Observable<Cursor> create(Cursor cursor) {
         return Observable.create(sub -> {
             try {
-                if (cursor.moveToFirst()) {
-                    do {
-                            sub.onNext(cursor);
-                    } while (cursor.moveToNext());
+                while (cursor.moveToNext()) {
+                    sub.onNext(cursor);
                 }
                 sub.onCompleted();
             } catch (Exception e) {
@@ -52,7 +50,17 @@ public class CursorObservable {
 
     public static Observable<Image> images(Context context) {
         Cursor cursor = new Select().from(context, Images.Media.EXTERNAL_CONTENT_URI).query();
-        return create(cursor).map(c -> Image.create(c)).doOnCompleted(() -> cursor.close()).doOnError(e -> cursor.close());
+        return create(cursor).map(c -> Image.create(c)).doOnCompleted(() -> {
+            android.util.Log.e("CursorObservable", "OnCompleted");
+            //if (cursor.isClosed()) android.util.Log.e("CursorObservable", "OnCompleted: cursor is closed");
+            //if (!cursor.isClosed()) cursor.close();
+        }).doOnError(e -> {
+            android.util.Log.e("CursorObservable", "OnError");
+            //if (cursor.isClosed()) android.util.Log.e("CursorObservable", "OnError: cursor is closed");
+            //if (!cursor.isClosed()) cursor.close();
+        });
+        //return create(cursor).map(c -> Image.create(c));
+            //.doOnCompleted(() -> cursor.close()).doOnError(e -> cursor.close());
     }
 
     public static class QueryBuilder {
