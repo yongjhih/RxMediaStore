@@ -1,5 +1,40 @@
 # RxMediaStore
 
+## Usage
+
+```java
+Observable<Image> images = CursorObservable.images(context);
+images.subscribe(System.out::println);
+```
+
+Ready Image.java:
+
+```java
+@AutoCursor
+public abstract class Image implements Parcelable {
+    @Nullable
+    @AutoCursor.Column(name = _ID)
+    public abstract Long id();
+
+    @Nullable
+    @AutoCursor.Column(name = DATA)
+    public abstract String data();
+ 
+    @Nullable
+    @AutoCursor.Column(name = BUCKET_DISPLAY_NAME)
+    public String bucketDisplayName();
+
+    @Nullable
+    @AutoCursor.Column(name = BUCKET_ID)
+    public Long bucketId();
+
+    // ...
+
+    public static Image create(Cursor cursor) {
+        return new AutoCursor_Image(cursor);
+    }
+}
+```
 
 ## Installation
 
