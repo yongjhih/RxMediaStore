@@ -25,10 +25,12 @@ import rx.functions.*;
 
 import android.provider.MediaStore.Images;
 import android.content.Context;
+import android.app.Activity;
 
 import static android.provider.MediaStore.MediaColumns.*;
 
-public class CursorObservable {
+public class MediaStoreObservable {
+    // CursorObservable.create()
     public static Observable<Cursor> create(Cursor cursor) {
         return Observable.create(sub -> {
             try {
@@ -48,15 +50,40 @@ public class CursorObservable {
     }
     */
 
+    public static Observable<Image> images(Activity activity) {
+        Cursor cursor = new Select().from(activity, Images.Media.EXTERNAL_CONTENT_URI).query();
+        return create(cursor).map(c -> Image.create(c));
+    }
+
     public static Observable<Image> images(Context context) {
         Cursor cursor = new Select().from(context, Images.Media.EXTERNAL_CONTENT_URI).query();
         return create(cursor).map(c -> Image.create(c)).doOnCompleted(() -> {
-            android.util.Log.e("CursorObservable", "OnCompleted");
-            //if (cursor.isClosed()) android.util.Log.e("CursorObservable", "OnCompleted: cursor is closed");
+            android.util.Log.e("MediaStoreObservable", "OnCompleted");
+            //if (cursor.isClosed()) android.util.Log.e("MediaStoreObservable", "OnCompleted: cursor is closed");
             //if (!cursor.isClosed()) cursor.close();
         }).doOnError(e -> {
-            android.util.Log.e("CursorObservable", "OnError");
-            //if (cursor.isClosed()) android.util.Log.e("CursorObservable", "OnError: cursor is closed");
+            android.util.Log.e("MediaStoreObservable", "OnError");
+            //if (cursor.isClosed()) android.util.Log.e("MediaStoreObservable", "OnError: cursor is closed");
+            //if (!cursor.isClosed()) cursor.close();
+        });
+        //return create(cursor).map(c -> Image.create(c));
+            //.doOnCompleted(() -> cursor.close()).doOnError(e -> cursor.close());
+    }
+
+    public static Observable<Image> thumbnails(Activity activity) {
+        Cursor cursor = new Select().from(activity, Images.Thumbnails.EXTERNAL_CONTENT_URI).query();
+        return create(cursor).map(c -> Image.create(c));
+    }
+
+    public static Observable<Image> thumbnails(Context context) {
+        Cursor cursor = new Select().from(context, Images.Thumbnails.EXTERNAL_CONTENT_URI).query();
+        return create(cursor).map(c -> Image.create(c)).doOnCompleted(() -> {
+            android.util.Log.e("MediaStoreObservable", "OnCompleted");
+            //if (cursor.isClosed()) android.util.Log.e("MediaStoreObservable", "OnCompleted: cursor is closed");
+            //if (!cursor.isClosed()) cursor.close();
+        }).doOnError(e -> {
+            android.util.Log.e("MediaStoreObservable", "OnError");
+            //if (cursor.isClosed()) android.util.Log.e("MediaStoreObservable", "OnError: cursor is closed");
             //if (!cursor.isClosed()) cursor.close();
         });
         //return create(cursor).map(c -> Image.create(c));
@@ -136,6 +163,7 @@ public class CursorObservable {
     }
 
     public static class Select {
+        Activity activity = null;
         Context context = null;
         Uri uri = null;
         String[] projection = null;
@@ -159,6 +187,16 @@ public class CursorObservable {
             this.context = context;
 
             return uri(uri);
+        }
+
+        public Select from(Uri uri, Activity activity) {
+            return from(activity, uri);
+        }
+
+        public Select from(Activity activity, Uri uri) {
+            this.activity = activity;
+
+            return from((Context) activity, uri);
         }
 
         public Select where(String selection, String[] selectionArgs) {
@@ -204,6 +242,17 @@ public class CursorObservable {
 
         public Cursor query() {
             if (context == null) return null;
+            /* Deprecated since v11 */
+            /*
+            if (activity != null) {
+                return activity.managedQuery(
+                        uri(),
+                        projection(),
+                        selection(),
+                        selectionArgs(),
+                        sortOrder());
+            }
+            */
             return context.getContentResolver().query(
                     uri(),
                     projection(),
