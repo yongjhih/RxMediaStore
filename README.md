@@ -3,7 +3,7 @@
 ## Usage
 
 ```java
-Observable<Image> images = CursorObservable.images(context);
+Observable<Image> images = MediaStoreObservable.images(context);
 images.subscribe(System.out::println);
 ```
 
