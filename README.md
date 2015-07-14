@@ -67,7 +67,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.yongjhih.RxMediaStore:rx-media-store:1.0.0'
+    compile 'com.github.yongjhih.RxMediaStore:rx-media-store:-SNAPSHOT'
 }
 ```
 
