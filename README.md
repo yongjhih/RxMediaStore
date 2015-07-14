@@ -1,5 +1,7 @@
 # RxMediaStore
 
+[![Join the chat at https://gitter.im/yongjhih/RxMediaStore](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/yongjhih/RxMediaStore?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Download](https://api.bintray.com/packages/yongjhih/maven/RxMediaStore/images/download.svg) ](https://bintray.com/yongjhih/maven/RxMediaStore/_latestVersion)
 [![JitPack](https://img.shields.io/github/tag/yongjhih/RxMediaStore.svg?label=JitPack)](https://jitpack.io/#yongjhih/RxMediaStore)
 [![Build Status](https://travis-ci.org/yongjhih/RxMediaStore.svg)](https://travis-ci.org/yongjhih/RxMediaStore)
