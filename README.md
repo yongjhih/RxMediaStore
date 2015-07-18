@@ -7,6 +7,8 @@
 
 ![](art/RxMediaStore.png)
 
+MediaStore in RxJava.
+
 ## Usage
 
 ```java
