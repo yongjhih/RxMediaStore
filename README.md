@@ -1,5 +1,6 @@
 # RxMediaStore
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RxMediaStore-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2157)
 [![Download](https://api.bintray.com/packages/yongjhih/maven/RxMediaStore/images/download.svg) ](https://bintray.com/yongjhih/maven/RxMediaStore/_latestVersion)
 [![JitPack](https://img.shields.io/github/tag/yongjhih/RxMediaStore.svg?label=JitPack)](https://jitpack.io/#yongjhih/RxMediaStore)
 [![Build Status](https://travis-ci.org/yongjhih/RxMediaStore.svg)](https://travis-ci.org/yongjhih/RxMediaStore)
