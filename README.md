@@ -7,7 +7,7 @@
 
 ![](art/RxMediaStore.png)
 
-MediaStore in RxJava.
+MediaStore with AutoCursor in RxJava.
 
 ## Usage
 
