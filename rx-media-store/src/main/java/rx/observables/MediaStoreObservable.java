@@ -33,8 +33,11 @@ public class MediaStoreObservable {
     // CursorObservable.create()
     public static Observable<Cursor> create(Cursor cursor) {
         return Observable.create(sub -> {
+            if (sub.isUnsubscribed()) return;
+
             try {
                 while (cursor.moveToNext()) {
+                    if (sub.isUnsubscribed()) return;
                     sub.onNext(cursor);
                 }
                 sub.onCompleted();
